@@ -1,0 +1,63 @@
+* {
+	font-family: 'Merriweather Sans', sans-serif;
+}
+
+body {
+	background-image: url('../images/reddoubledecker.jpg'); 
+	background-size: 100% 100%; 
+
+}
+
+h1, h3 {
+	font-weight: bolder;
+
+
+}
+
+.row{
+	background: #FFF;
+	color: #000;
+	opacity: .7; 
+}
+
+#ratings{
+	color: #FFF;
+	font-family: font-family: 'Merriweather Sans', sans-serif;
+	font-weight: bolder; 
+
+}
+
+#comedyView {
+	display: inline-block;
+	margin: 15px;
+	width: 900px;
+	height: 500px;
+	overflow: scroll;
+
+}
+
+.comedyImage{
+	margin: 10px;
+}
+
+
+.container {
+	width: 65%;
+	margin-bottom: 30px;
+}
+
+
+
+button {
+
+	background-color:#fff;
+	display:inline-block;
+	cursor:pointer;
+	color:#000;
+	border-color: #000; 
+	padding:5px 5px;
+	text-decoration:none;
+	text-transform: capitalize;
+    margin: 5px;
+}
+
