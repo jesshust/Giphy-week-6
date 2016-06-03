@@ -1,0 +1,140 @@
+<html>
+<head>
+	<title>British Comedies</title>
+	<style type="text/css">
+		button, div, form, input {
+			margin: 30px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="container">
+
+
+  	<div id="buttonsView"></div>
+  	
+ 	<form id="comedyForm">
+    	<label for="comedyInput">Add a British Comedy</label>
+    	<input type="text" id="comedyInput"><br>
+    
+    	<!-- new buttons -->
+    	<input id="addComedy" type="submit" value="Add it!">
+ 	</form>
+
+
+ 	<!--comedy shows-->
+	<div id="comedyView"></div>
+
+<script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+<script type="text/javascript">
+
+	// British Comedies array
+	var comedies = ['Peep Show', 'The Mighty Boosh', 'Spaced', 'The IT Crowd'];
+
+	//display function
+	function displayBritishComedy(){
+
+		var comedy = $(this).attr('data-comedy'); 
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + comedy + "&api_key=dc6zaTOxFJmzC&limit=10"; 
+
+		console.log(queryURL); 
+
+		$.ajax({url: queryURL, method: 'GET'}).done(function(response) {
+
+			
+			var results = response.data; 
+
+			
+
+			for(var i=0; i < results.length; i++){
+				var gifDiv = $('<"div class = item">');  //creates empty img divs for photos
+
+				var rating = results[i].rating; 
+
+				var comedyImage = $('<img>'); //grab the image
+
+				comedyImage.attr('src', results[i].images.fixed_height.url); 
+
+				comedyImage.attr('alt', 'comedy image');
+
+				gifDiv.append(comedyImage); 
+
+				$("#comedyView").prepend(comedyImage); 
+
+			}
+
+		});  
+	 }
+
+
+	//display comedy titles
+	function renderButtons(){ 
+
+	
+		$("#buttonsView").empty(); 
+
+		// loops through comedies 
+
+		for(var i= 0; i <comedies.length; i++){
+		
+			var a = $("<button>"); 
+			a.addClass("comedy"); 
+			a.attr("data-comedy", comedies[i]); 
+			a.text(comedies[i]); //textbox info
+			$("#buttonsView").append(a); //add the button to the page
+
+		} 
+
+
+	}
+
+	// add the comedy button 
+
+	function createComedy(){
+
+	$('#addComedy').on('click', function(){
+
+		
+		//should grab from text box to create button
+		var comedy = $("#comedyInput").val(); 
+		
+
+		comedies.push(comedy); 
+		
+		renderButtons();
+
+
+		// used in example - users can press enter instead of clicking submit
+		return false;
+	})
+
+	}
+
+	function imageAnimate(){
+		var state=$(this).attr('data-state'); 
+
+		if(state === 'still'){
+			$(this).attr('src', $(this).data('animate')); 
+			$(this).attr('data-state', 'animate'); 
+		}else {
+			$(this).attr('src', $(this).data('still')); 
+			$(this).attr('data-state', 'still'); 
+		}
+	}; 
+		
+
+	//should display comedy images
+	$(document).on("click", ".comedy", displayBritishComedy); 
+	$(document).on("click", ".comedy", imageAnimate); 
+
+	renderButtons();
+	createComedy(); 
+	
+
+
+	</script>
+
+
+</body>
+</html>
